@@ -1,0 +1,326 @@
+/*
+ * Authors: 
+ * Silvia Benvenuti @aulentina
+ * Mark Boas @maboa
+ * Mark Panaghiston @thepag    
+ */
+
+.progress-container { 
+	position: relative;
+	height: 50px;
+/*	top:-25px;*/
+}
+.waveform-container {
+	position: absolute;
+	top: 0px;
+}
+.waveform-container img {
+	width:1024px;
+	height: 50px;
+	background-color: #fd7426;
+}
+.jp-progress {
+	position: absolute;
+	top: 0px;
+	width:1024px;
+	height: 50px;
+}
+.jp-seek-bar {
+	height: 50px;
+	background-color: #fff;
+	opacity: 0.4;
+	cursor: pointer;
+}
+.jp-play-bar {
+	height: 50px;
+	background-color: #000;
+	opacity: 0.4;
+	cursor: pointer;
+}
+     
+
+/* @maboa hacks */
+
+ul, ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;   
+}
+
+body {                     
+	/*
+	background-image:url('../images/background.jpg');
+	background-repeat:no-repeat;     
+	background-position:50% 0;     
+	margin: 218px auto 0 auto;
+	width: 1024px;    */
+	font-family: Verdana, Helvetica, Arial, "Lucida Grande";
+	font-size: 12px;   
+	margin: 0;
+	padding: 0;  
+}
+
+a img{
+	border: none;
+	outline:none;
+	margin-right: 10px;
+}
+
+#container {
+	position:relative;
+	background-image:url('../images/background.jpg');
+	background-repeat:no-repeat;     
+	background-position:50% 0;     
+	margin:0 auto;
+	padding-top: 140px;
+	width: 1024px; 
+	/*z-index: -1;*/   
+}
+    
+#transcript { 
+	position:relative;
+	overflow:auto;  
+	height:310px; 
+	width:630px; 
+	/* background-color:#fff; */
+	background-color: rgba(255,255,255,0.8); 
+	color:#666;  
+	padding: 12px; 
+/*	margin:0 auto 189px auto; /* 213 - (2 * 12) = 189px */
+	margin:0 auto 148px auto; /* 213 - (2 * 12) = 189px */  
+	z-index:30;
+}
+
+#images {   
+	position:relative;  
+	margin:0 auto 172px auto;
+	height:310px; 
+	width:630px;
+	z-index:30; 
+} 
+
+
+#transcript-content span {
+	cursor: pointer;
+}    
+
+#transcript-content span:hover {  
+	color: #f07d00; 
+}   
+
+
+#transcript-content span.transcript-grey {
+    color: #ccc;
+}
+
+#images-square-left {
+	width: 310px;  
+	height: 310px;
+	/*background-image:url('../images/abe1.jpg'); */
+	float: left;
+}  
+
+#images-square-right {
+	width: 310px; 
+	height: 310px;
+	/*background-image:url('../images/abe2.jpg'); */
+	float: right;	
+} 
+
+#images-widescreen {
+	width: 630px; 
+	height: 310px;
+	/*background-image:url('../images/abe2.jpg'); */
+	float: left;	
+}  
+  
+#simple-controls {
+/*	position: absolute;
+	top:90px;
+	right:0;*/
+	margin-top:86px;
+	width:50px;
+	height: 153px;
+	text-indent:-9999px;
+	list-style-type:none;
+	float: right; 
+}
+
+#social-controls {
+/*	position: absolute;
+	top:90px;
+	left:0;*/
+	margin-top:86px;
+	width:50px;
+	height: 153px;
+	list-style-type:none;
+	float: left;   
+}
+
+#simple-controls a, #social-controls a{
+	display: block;	
+	width: 50px;
+	height: 50px;
+	border-bottom: 1px solid #fff;
+}
+
+#simple-controls a:hover, #social-controls a:hover{
+	cursor:pointer;
+}
+
+.jp-play{
+	background:url('../images/sprites.gif')	0 0 no-repeat;
+}    
+
+.jp-pause{
+	background:url('../images/sprites.gif')	0 -50px no-repeat;
+}  
+
+.jp-pause-flash{
+	background:url('../images/sprites.gif')	-50px -50px no-repeat;
+}    
+
+.jp-restart{
+	background:url('../images/sprites.gif')	0 -200px no-repeat;
+}    
+
+.show-trans{
+	background:url('../images/sprites.gif')	0 -100px no-repeat;
+}    
+
+.hide-trans{
+	background:url('../images/sprites.gif')	0 -150px no-repeat;
+}    
+
+.twitter {
+	background:url('../images/sprites.gif')	0 -250px no-repeat;
+}
+
+.facebook {
+	background:url('../images/sprites.gif')	0 -300px no-repeat;
+}
+
+.soundcloud {
+	background:url('../images/sprites.gif')	0 -350px no-repeat;
+}
+
+
+
+#comments-public {
+/*	position: absolute;
+	top:480px;*/
+	height:18px; 
+	cursor: pointer; 
+	width: 100%;
+/*	background-color:#fe5a03;*/
+}
+     
+
+li.timestamped-comment .marker .user-image-tiny {
+    left: 1px;
+    position: absolute !important;
+}
+
+.user-image-tiny {
+    height: 18px;
+    width: 18px; 
+    color: #0066CC;
+    cursor: pointer;
+    outline: 0 none;
+    text-decoration: none;
+} 
+
+.timestamped-comments {
+    background-color: #3399FF;
+    background-position: 0 -25px;
+    border-top: 1px solid #CCCCCC;
+    color: #0066CC;
+    cursor: pointer;
+    font-size: 12px;
+    height: 18px;
+    left: 0;
+    position: absolute !important;
+    top: 89px;
+    width: 100%;
+    z-index: 1180;
+}
+
+/*#wordsriver-container {
+	position: absolute;
+	top:0px;
+	width: 100%;
+	z-index:-1;
+} */
+
+#wordsriver {
+	position: absolute;
+	top:0px;
+	left:197px;
+	width: 630px;
+	/* height: 152px; */
+	height: 572px;
+	font-family: Arial;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	z-index:20;
+}
+
+#wordsriver .speaker-robert-krulwich {
+	color: #6cdbd5;
+	font-family: Arial;
+}
+
+#wordsriver .speaker-jad-abumrad {
+	color: #fd7426;
+	font-family: "Lucida Grande";
+}
+
+#wordsriver .speaker-john-walter {
+	color: #333333;
+	font-family: Verdana;
+}
+
+#wordsriver .speaker-1 {
+	color: gray;
+	font-family: Arial;
+}
+
+#wordsriver .speaker-2 {
+	color: black;
+	font-family: Arial;
+}
+
+#wordsriver .speaker-3 {
+	color: gray;
+	font-family: Arial;
+}   
+
+#commentOutput, #destructions{
+	position: absolute;
+	background-color:#fd9d6d; 
+	color:#fff; 
+	padding: 6px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	opacity: 0.8;
+}   
+
+#commentOutput {
+	top: 564px;
+	left: 140px;
+	z-index:20;
+}
+
+#destructions {
+	top: 500px;
+	left: 810px;
+}
+     
+#commentOutput a {
+	text-decoration: none; 
+	color:#333; 
+	cursor: pointer; 
+}
+
