@@ -1,0 +1,82 @@
+<!-- Authors -->
+<!-- Silvia Benvenuti @aulentina -->
+<!-- Mark Boas @maboa -->
+<!-- Mark Panaghiston @thepag -->
+<!-- Steven Weerdenberg -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- futile attempts to hide the address bar on the iPad -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />         
+<meta property="og:image" content="http://media40.wnyc.net/media/img/radiolab/header-logo.png"/>            
+
+<!-- end of futility -->
+<title>Radiolab Player demo</title>
+<link type="text/css" href="css/audio.css" rel="stylesheet" />   
+ 
+<script type="text/javascript" src="js/libs/jquery.min.js"></script> <!-- jQuery 1.5.1 -->
+<script type="text/javascript" src="js/libs/jquery.jplayer.js"></script> <!-- jPlayer 2.0.9 -->
+<script type="text/javascript" src="js/libs/jquery.scrollTo-min.js"></script>
+<script type="text/javascript" src="js/libs/popcorn.js"></script> <!-- popcorn 0.4.1 -->
+<script type="text/javascript" src="js/libs/popcorn.wordriver.js"></script>
+<script type="text/javascript" src="js/libs/popcorn.scComments.js"></script>
+<script type="text/javascript" src="js/libs/popcorn.transcript.js"></script>
+<script type="text/javascript" src="js/audio.js"></script>  
+
+
+
+</head>
+<body>
+<div id="container">
+		<div id="jquery_jplayer_1"></div>
+		<!--<div id="wordsriver-container"> -->
+			<div id="wordsriver"></div>
+		<!--</div>-->
+		<ul id="simple-controls">
+			<li class="jp-play-hldr"><a href="#" class="jp-play" title="play"></a></li>
+			<li class="jp-pause-hldr"><a href="#" class="jp-pause" title="pause" style="display:none"></a></li> <!-- class="jp-pause-flash" for flashing -->
+			<li class="jp-restart-hldr"><a href="#" class="jp-restart" title="restart"></a></li>
+			<li class="show-trans-hldr"><a href="#" class="show-trans" title="show transcript"></a></li>
+			<li class="hide-trans-hldr"><a href="#" class="hide-trans" title="hide transcript" style="display:none"></a></li>
+		</ul>
+
+		<ul id="social-controls">
+			<li class="twitter-hldr"><a href="http://twitter.com/share?url=http%3A%2F%2Fhyper-audio.org%2Fr%2F" target="_blank" class="twitter" title="tweet it"></a></li>  
+			<li class="facebook-hldr"><a href="http://www.facebook.com/sharer.php?u=http://hyper-radio.org/r/&t=Radiolab Demo" target="_blank" class="facebook">
+			</a></li>
+			<li class="soundcloud-hldr"><a href="http://soundcloud.com/radiolab/hairpart" target="_blank" class="soundcloud" title="comment on soundcloud"></a></li>
+		</ul>
+
+		<div id="commentOutput">moo!</div>
+		<div id="destructions">Toggle between transcript and images using the transcript button above.</div>
+		<div id="transcript" style="display:none"><div id="transcript-content"></div></div>
+		<div id="images">
+			<div id="images-square">
+				<div id="images-square-left"></div>
+				<div id="images-square-right"></div>
+			</div>
+			<div id="images-widescreen" style="display:none">
+			</div>
+		</div>
+
+		<ol id="comments-public">
+		</ol>
+
+		<div id="waveform" class="progress-container">
+			<div class="waveform-container">
+				<img id="waveform-img" />
+			</div>
+			<div class="jp-progress">
+				<div class="jp-seek-bar">
+					<div class="jp-play-bar"></div>
+				</div>
+			</div>
+		</div>
+
+
+</div>
+</body>
+</html>
