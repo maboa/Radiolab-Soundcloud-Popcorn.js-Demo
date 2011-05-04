@@ -1,4 +1,7 @@
-/*
+/*   
+ * Licensed under the MIT license.
+ *  - http://www.opensource.org/licenses/mit-license.php
+ *
  * Authors:      
  * Mark Boas @maboa
  * Mark Panaghiston @thepag 
@@ -12,26 +15,35 @@ $(document).ready(function(){
 	var admin = "Radiolab";  
 	var mediaId = "13580897";
 	var apiKey = "CHAyhB5IisvLqqzGYNYbmA";
-	var duration = 1016; // change this later for flexibility - the issue is that we don't know the duration until the track has completely loaded
+	var duration = 1016; // change this later for flexibility - the issue is that we don't know the duration until the track has completely loaded            
+	
+	// support checks  
+	
+	var cssTransitionsSupport = Modernizr.csstransitions;   
+	var audioTagSupport = !!(document.createElement('audio').canPlayType);    
+	
+	if (audioTagSupport == false ) {
+		$('#commentOutput').text('Unfortunatley your browser does not support audio natively and so this demo will not run. Upgrade to the latest version of your browser for the best experience.'); 
+		$('#destructions').text('Houston we have a problem!');
+	} else if (cssTransitionsSupport ==  false) {
+		$('#commentOutput').text('This demo features effects that rely on CSS3 transitions, which your browser does not support. Upgrade to the latest version of your browser for the best experience.');
+	}
+	
 	       
 	// Hide the URL bar for iPhone / iPad         
 	
 	addEventListener("load", function(){
 		setTimeout(updateLayout, 0);
-	}, false);  
+	}, false);   
+	
+	
 	
 	/*document.ontouchmove = function (event) {
 	    if (!event.elementIsEnabled) {
 	        event.preventDefault();
 	    }
-	};
-	
-	document.getElementById('transcript').ontouchmove = function (event) { 
-	    event.elementIsEnabled = true;
 	};*/
 	
-	
-
     function updateLayout(){
 		if (navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('iPad') != -1) 
 		{
@@ -94,6 +106,54 @@ $(document).ready(function(){
 			}
 		});   
 	   
+	}   
+	
+	function grabImages(text) { 
+		
+		var url1 = "";
+		var url2 = ""; 
+		var space = 0; 
+		var images = [null,null];
+		
+		// replacing newline or return with space
+		text = text.replace('\n',' ');  
+		text = text.replace('\r',' ');   
+		
+		// checking for images in the comments
+		
+		var urlStart = text.indexOf('http://');      
+		
+		if (urlStart >= 0) {
+
+			text = text.substr(urlStart,text.length);     
+			space = text.indexOf(' ');  
+		
+			if (space < 0) {
+				url1 = text; 
+				text = "";
+			} else {
+				url1 = text.substr(0,space);   
+				text = text.substr(space,text.length); 
+			}
+
+			urlStart = text.indexOf('http://');     
+
+			if (urlStart >= 0) { 
+				text = text.substr(urlStart,text.length);  
+				space = text.indexOf(' ');  
+		   
+				if (space < 0) {
+					url2 = text;
+				} else {
+					url2 = text.substr(0,space); 
+				}    
+			}   
+		
+            if (url1.indexOf('.jpg') >= 0) images[0] = url1;
+			if (url2.indexOf('.jpg') >= 0) images[1] = url2;
+		} 
+		
+		return images;   	
 	}
 
 	function initPopcorn(id) {
@@ -109,89 +169,50 @@ $(document).ready(function(){
 				limit: 500
 		    } )
 			.listen( 'scCommentIn', function( comment ) {   
-				var text = comment.text;     
-				var url1 = "";
-				var url2 = ""; 
-				var space = 0; 
-				var isUrl1Image = false;
-				var isUrl2Image = false;
+				var text = comment.text;      
+				var images = [null,null];
    
 				if (comment.user.name == admin) {
 					// search the contents     
 					
-				    // replacing newline with space
-					text = text.replace('\n',' ');  
-					text = text.replace('\r',' ');
-					
-					
-					var urlStart = text.indexOf('http://');      
-					
-					if (urlStart >= 0) {
-
-						text = text.substr(urlStart,text.length);     
-						space = text.indexOf(' ');  
-					
-						if (space < 0) {
-							url1 = text; 
-							text = "";
-						} else {
-							url1 = text.substr(0,space);   
-							text = text.substr(space,text.length); 
-						}
-
-						urlStart = text.indexOf('http://');     
-
-						if (urlStart >= 0) { 
-							text = text.substr(urlStart,text.length);  
-							space = text.indexOf(' ');  
-					   
-							if (space < 0) {
-								url2 = text;
-							} else {
-								url2 = text.substr(0,space); 
-							}    
-						}   
-					
-                        isUrl1Image = url1.indexOf('.jpg') >= 0;
-						isUrl2Image = url2.indexOf('.jpg') >= 0;      
-						
-						//console.log('isUrl1Image: '+isUrl1Image);  
-						//console.log('isUrl2Image: '+isUrl2Image);  
-				    
-						if (url2.length > 0 && isUrl2Image) {
-							$('#images-square-left').css("background-image", "url("+url1+")");   
-							$('#images-square-right').css("background-image", "url("+url2+")"); 
-							$('#images-widescreen').hide();
-							$('#images-square').show();  
-						} else if (url1.length > 0 && isUrl1Image){
-							$('#images-widescreen').css("background-image", "url("+url1+")");      
-							$('#images-square').hide();  
-							$('#images-widescreen').show();
-						}    
-						
-					}    
+				    images = grabImages(text);
+   
+					if (images[1]) {
+						$('#images-square-left').css("background-image", "url("+images[0]+")");   
+						$('#images-square-right').css("background-image", "url("+images[1]+")"); 
+						$('#images-widescreen').hide();
+						$('#images-square').show();  
+					} else if (images[0]){
+						$('#images-widescreen').css("background-image", "url("+images[0]+")");      
+						$('#images-square').hide();  
+						$('#images-widescreen').show();
+					}   
 				} 
 				
-				if (isUrl1Image == false) { // is false if no URL, not admin or isn't an image   
+				if (!(images[0])) { 
 					formatComment( comment );
 		    	}
-
-				
 			})
 			.listen( 'scCommentOut', function( comment ) {
 			    //document.getElementById('commentOutput').innerHTML = '';
 			})
 			.listen( 'scLoadedmetadata', function( data ) {
 
-				   var comments = this.scComments.tracks[mediaId].comments;
-				   var lis = "";
-					Popcorn.forEach( comments, function ( obj ) { 
-					  var pc = (100*obj.start)/duration;   
-					  var scTime = obj.start*1000;
+				var comments = this.scComments.tracks[mediaId].comments;
+				var lis = "";
+				Popcorn.forEach( comments, function ( obj ) { 
+					var pc = (100*obj.start)/duration;   
+					var scTime = obj.start*1000;
 					  
-					  if (!(obj.user.name == admin && obj.text.indexOf('.jpg') >= 0)){   
+					if (!(obj.user.name == admin && obj.text.indexOf('.jpg') >= 0)){   
   						lis = lis + '<li class="timestamped-comment track-owner" style="position:absolute; left: '+pc+'%;" data-sc-comment-timestamp="'+obj.start+'"><div class="marker" style="width: 1px"><a class="user-image-tiny" style="background-image: url('+obj.user.avatar.replace('large','tiny')+')" href="http://soundcloud.com/radiolab/hairpart#new-timed-comment-at-'+scTime+'" target="_blank"></a></div></li>';  
-					  }
+					  } else { // let's cache
+						images = grabImages(obj.text); 
+						  
+						if (images[0]) (new Image).src = images[0]; 
+						if (images[1]) (new Image).src = images[1]; 
+					}
+					  
 					});  
 					$('#comments-public').append(lis);   
 					          
